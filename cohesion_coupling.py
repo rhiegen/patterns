@@ -63,12 +63,18 @@ class VehicleRegistry:
 class Application:
     
     def register_vehicle(self, brand : str):
+        # create registry instance
         registry = VehicleRegistry()
 
-        vehicle = registry.create_vehicle(brand)
+        return registry.create_vehicle(brand)
 
-        #print out the vehicle information registration 
-        vehicle.print()
 
 app = Application()
-app.register_vehicle("Volkswagen ID3")
+vehicle = app.register_vehicle("Volkswagen ID3")
+vehicle.print()
+print()
+vehicle = app.register_vehicle("BMW 5")
+vehicle.print()
+print()
+vehicle = app.register_vehicle("Tesla Model 3")
+vehicle.print()
