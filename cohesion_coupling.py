@@ -14,3 +14,4 @@ class application:
         registry = VehicleRegistry()
         vehicle_id = registry.generate_id(12)
         license_plate = registry.generate_vehicle_license(vehicle_id)
+sss
