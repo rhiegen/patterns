@@ -1,4 +1,4 @@
-from dii import Authorizer_SMS, Order, PaymentProcessor
+from dii import Authorizer_SMS, Order,Authorizer_Robot, PaymentProcessor
 import unittest
 from unittest.mock import patch
 
@@ -41,6 +41,32 @@ class Authorizer_SMS_TestCase(unittest.TestCase):
         auth.authorize()
         self.assertFalse(auth.is_authorized())
 
+class Authorizer_Robot_TestCase(unittest.TestCase):
+
+    def test_init_authorized(self):
+        auth = Authorizer_Robot()
+        self.assertFalse(auth.is_authorized())
+
+    def test_authorize_success(self):
+        auth = Authorizer_Robot()
+        with patch('builtins.input',return_value = "n"):
+            auth.authorize()
+            self.assertFalse(auth.is_authorized())
+
+    def test_authorize_success_uppercase(self):
+        auth = Authorizer_Robot()
+        with patch('builtins.input',return_value = "N"):
+            auth.authorize()
+            self.assertFalse(auth.is_authorized())
+
+
+    def test_authorize_fail(self):
+        auth = Authorizer_Robot()
+        with patch('builtins.input',return_value = "y"):
+            auth.authorize()
+            self.assertFalse(auth.is_authorized())
+
+
 class PaymentProcessor_TestCase(unittest.TestCase):
 
     def test_init(self):
@@ -70,6 +96,6 @@ class PaymentProcessor_TestCase(unittest.TestCase):
 
 
 
-if __name__ == '__name__':
+if __name__ == '__main__':
     unittest.main()
     

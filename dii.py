@@ -35,6 +35,19 @@ class Authorizer_SMS(Authorizer):
     def is_authorized(self) -> bool:
         return self.authorized
 
+class Authorizer_Robot(Authorizer):
+    def __init__(self):
+        self.authorized = False
+
+    def authorize(self):
+        robot = ''
+        while robot != 'y' and robot != 'n':
+            robot = input('Are you a robot (y/n)?').lower()
+        self.authorize = robot == 'n'
+
+    def is_authorized(self) -> bool:
+        return self.authorized
+
 class PaymentProcessor:
 
     def __init__(self, authorizer: Authorizer):
