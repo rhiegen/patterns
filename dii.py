@@ -1,6 +1,16 @@
 import random
 import string
 from abc import ABC, abstractmethod
+# dependency inversion and injection 
+
+class Authorizer(ABC):
+    @abstractmethod
+    def authorize(self):
+        '''Authorizes the user '''
+
+    @abstractmethod
+    def is_authorized(self)-> bool:
+        """See if user is authorized"""
 
 class Order:
     def __init__(self):
@@ -10,7 +20,7 @@ class Order:
     def set_status(self, status):
         self.status = status
 
-class Authorizer_SMS:
+class Authorizer_SMS(Authorizer):
     def __init__(self):
         self.authorized = False
         self.code = None
@@ -27,7 +37,7 @@ class Authorizer_SMS:
 
 class PaymentProcessor:
 
-    def __init__(self, authorizer: Authorizer_SMS()):
+    def __init__(self, authorizer: Authorizer):
         self.authorizer = authorizer
 
     def pay(self, order):
