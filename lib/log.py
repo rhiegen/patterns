@@ -1,2 +1,4 @@
-def log(email: str,evento: str):
-    print(f'{email} {evento}')
+from datetime import datetime
+
+def log(msg: str):
+    print(f"{datetime.now()} - {msg}")
