@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import List
-from pattern_chain import ChainPattern
+from overrideChain import OverrideChain
 import re
 from chain.params_enum import Parameters
 from chain.utils import get_useful_parameters
@@ -11,7 +11,7 @@ from chain.utils import get_useful_parameters
 #     return data
 
 
-class UnitChain(ChainPattern):
+class UnitChain(OverrideChain):
 
     def get_parameters(self, data, retorno: list = []) -> List:
         unit = None

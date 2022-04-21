@@ -3,23 +3,22 @@ import enum
 import re
 from typing import List
 from chain.params_enum import Parameters
-from chain.pattern_chain import ChainPattern
+from chain.overrideChain import OverrideChain
 from chain.utils import get_needed_comma, get_useful_parameters
 
 
-class ClasParameters(enum.Enum):
-    DATACLAS = Parameters.DATACLAS.value
-    STORCLAS = Parameters.STORCLAS.value
-    AVGREC = Parameters.AVGREC.value
-
-
-class ClasChain(ChainPattern):
+class ClasChain(OverrideChain):
     __XDEFCOMP = 'XDEFCOMP'
+    __list_clas_parameters = [
+        Parameters.DATACLAS,
+        Parameters.STORCLAS,
+        Parameters.AVGREC
+    ]
 
     def get_parameters(self, data, retorno: List = []) -> List:
         print('processando _clas...')
         data = get_useful_parameters(data,4)
-        for param in ClasParameters:
+        for param in self.__list_clas_parameters:
             reg_expr = f'({param.value}=)(\w+)'
             ret_expr = re.search(reg_expr, data)
             if ret_expr is not None:
@@ -32,18 +31,18 @@ class ClasChain(ChainPattern):
     def make_override(self, data: List, existente: List = [], resultado: str = None) -> str:
         print('gerando override _clas...')
         ovr = ''
-        for param in ClasParameters:
+        for param in self.__list_clas_parameters:
             ret_param_gerada = [x for x in data if x is not None and param.value in x]
             ret_param_existente = [x for x in existente if x is not None and param.value in x]
             if len(ret_param_gerada) > 0:
                 ovr = get_needed_comma(ovr, resultado)
-                if param.value == ClasParameters.DATACLAS.value:
+                if param.value == Parameters.DATACLAS.value:
                     ovr = self.get_defcomp(ovr, ret_param_existente, ret_param_gerada)
                 else:
                     ovr += ''.join(ret_param_gerada)
             elif len(ret_param_existente) > 0:
                 ovr = get_needed_comma(ovr, resultado)
-                if param.value == ClasParameters.DATACLAS.value:
+                if param.value == Parameters.DATACLAS.value:
                     ovr = self.get_defcomp(ovr, ret_param_gerada, ret_param_existente)
                 else:
                     ovr += ''.join(ret_param_existente)

@@ -1,10 +1,9 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import List
-import re
 
 
-class ChainPattern(ABC):
+class OverrideChain(ABC):
 
     def __init__(self):
         self.next = None
@@ -12,7 +11,7 @@ class ChainPattern(ABC):
     def get_next(self):
         return self.next
 
-    def set_next(self, next_obj: ChainPattern = None):
+    def set_next(self, next_obj: OverrideChain = None):
         self.next = next_obj
 
     @abstractmethod

@@ -6,5 +6,3 @@ if __name__ == "__main__":
     ovr = OverrideImpl()
     override = ovr.get_overrides(ovr_existente, ovr_gerado)
     print(override)
-
-
