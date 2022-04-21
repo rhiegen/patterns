@@ -10,3 +10,6 @@ def get_needed_comma(ovr, resultado):
     if ovr != '' or resultado != '':
         ovr += ','
     return ovr
+
+
+
