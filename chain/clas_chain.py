@@ -28,31 +28,31 @@ class ClasChain(OverrideChain):
             return self.get_next().get_parameters(data, retorno)
         return retorno
 
-    def make_override(self, data: List, existente: List = [], resultado: str = None) -> str:
+    def make_override(self, data: List =[], existente: List = [], result: str = None) -> str:
         print('gerando override _clas...')
         ovr = ''
         for param in self.__list_clas_parameters:
             ret_param_gerada = [x for x in data if x is not None and param.value in x]
             ret_param_existente = [x for x in existente if x is not None and param.value in x]
             if len(ret_param_gerada) > 0:
-                ovr = get_needed_comma(ovr, resultado)
-                if param.value == Parameters.DATACLAS.value:
-                    ovr = self.get_defcomp(ovr, ret_param_existente, ret_param_gerada)
-                else:
-                    ovr += ''.join(ret_param_gerada)
+                ovr = self.__get_concatenated_params(ovr, param, result, ret_param_existente, ret_param_gerada)
             elif len(ret_param_existente) > 0:
-                ovr = get_needed_comma(ovr, resultado)
-                if param.value == Parameters.DATACLAS.value:
-                    ovr = self.get_defcomp(ovr, ret_param_gerada, ret_param_existente)
-                else:
-                    ovr += ''.join(ret_param_existente)
+                ovr = self.__get_concatenated_params(ovr, param, result, ret_param_gerada, ret_param_existente)
 
-        resultado += ovr
+        result += ovr
         if self.get_next() is not None:
-            return self.get_next().make_override(data, existente, resultado)
-        return resultado
+            return self.get_next().make_override(data, existente, result)
+        return result
 
-    def get_defcomp(self, ovr, ret_param1, ret_param2):
+    def __get_concatenated_params(self, ovr, param, result, ret_param1, ret_param2):
+        ovr = get_needed_comma(ovr, result)
+        if param.value == Parameters.DATACLAS.value:
+            ovr = self.__get_defcomp(ovr, ret_param1, ret_param2)
+        else:
+            ovr += ''.join(ret_param2)
+        return ovr
+
+    def __get_defcomp(self, ovr, ret_param1, ret_param2):
         ovr += f'{Parameters.DATACLAS.value}={self.__XDEFCOMP}' \
             if ''.join(ret_param1) == \
                f'{Parameters.DATACLAS.value}={self.__XDEFCOMP}' \

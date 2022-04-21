@@ -6,11 +6,6 @@ from chain.params_enum import Parameters
 from chain.utils import get_useful_parameters
 
 
-# def get_useful_parameters(data):
-#     data = data[data.find('DD') + 3:]
-#     return data
-
-
 class UnitChain(OverrideChain):
 
     def get_parameters(self, data, retorno: list = []) -> List:
