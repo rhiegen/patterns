@@ -1,10 +1,8 @@
 from __future__ import annotations
-import enum
 import re
-from typing import List
 from chain.params_enum import Parameters
 from chain.overrideChain import OverrideChain
-from chain.utils import get_needed_comma, get_useful_parameters
+from chain.util_funcs import get_needed_comma, get_useful_parameters
 
 
 class ClasChain(OverrideChain):
@@ -15,9 +13,11 @@ class ClasChain(OverrideChain):
         Parameters.AVGREC
     ]
 
-    def get_parameters(self, data, retorno: List = []) -> List:
-        print('processando _clas...')
-        data = get_useful_parameters(data,4)
+    def get_parameters(self, data, retorno=None) -> list:
+        print('processing _clas...')
+        if retorno is None:
+            retorno = []
+        data = get_useful_parameters(data, 4)
         for param in self.__list_clas_parameters:
             reg_expr = f'({param.value}=)(\w+)'
             ret_expr = re.search(reg_expr, data)
@@ -28,16 +28,25 @@ class ClasChain(OverrideChain):
             return self.get_next().get_parameters(data, retorno)
         return retorno
 
-    def make_override(self, data: List =[], existente: List = [], result: str = None) -> str:
-        print('gerando override _clas...')
+    def make_override(self, data=None, existente=None, result=None) -> str:
+        print('generating _clas override ...')
+        if data is None:
+            data = []
+
+        if existente is None:
+            existente = []
+
+        if result is None:
+            result = ''
+
         ovr = ''
         for param in self.__list_clas_parameters:
-            ret_param_gerada = [x for x in data if x is not None and param.value in x]
-            ret_param_existente = [x for x in existente if x is not None and param.value in x]
-            if len(ret_param_gerada) > 0:
-                ovr = self.__get_concatenated_params(ovr, param, result, ret_param_existente, ret_param_gerada)
-            elif len(ret_param_existente) > 0:
-                ovr = self.__get_concatenated_params(ovr, param, result, ret_param_gerada, ret_param_existente)
+            ret_generated_param = [x for x in data if x is not None and param.value in x]
+            ret_existent_param = [x for x in existente if x is not None and param.value in x]
+            if len(ret_generated_param) > 0:
+                ovr = self.__get_concatenated_params(ovr, param, result, ret_existent_param, ret_generated_param)
+            elif len(ret_existent_param) > 0:
+                ovr = self.__get_concatenated_params(ovr, param, result, ret_generated_param, ret_existent_param)
 
         result += ovr
         if self.get_next() is not None:

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from chain.utils import get_cab
+from chain.util_funcs import get_cab
 from clas_chain import ClasChain
 from unit_chain import UnitChain
 

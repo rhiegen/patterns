@@ -1,6 +1,5 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from typing import List
 
 
 class OverrideChain(ABC):
@@ -15,12 +14,12 @@ class OverrideChain(ABC):
         self.next = next_obj
 
     @abstractmethod
-    def get_parameters(self, data: str, __retorno = []) -> List:
+    def get_parameters(self, data: str, __retorno=None) -> list:
         if __retorno is None:
             __retorno = []
 
     @abstractmethod
-    def make_override(self, gerada: List = [], existente: List = [], resultado: str = None) -> str:
+    def make_override(self, gerada=None, existente=None, resultado=None) -> str:
         pass
 
 

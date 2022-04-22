@@ -1,16 +1,17 @@
 from __future__ import annotations
-from typing import List
 from overrideChain import OverrideChain
 import re
 from chain.params_enum import Parameters
-from chain.utils import get_useful_parameters
+from chain.util_funcs import get_useful_parameters
 
 
 class UnitChain(OverrideChain):
 
-    def get_parameters(self, data, retorno: list = []) -> List:
+    def get_parameters(self, data, retorno=None) -> list:
+        if retorno is None:
+            retorno = []
         unit = None
-        print('processando unit...')
+        print('processing unit...')
         data = get_useful_parameters(data,3)
         pattern_unit_simple = f'({Parameters.UNIT.value}=SYSDA)'
         pattern_unit_number = f'({Parameters.UNIT.value}=\(SYSDA\,)(\d+)(\))'
@@ -27,13 +28,22 @@ class UnitChain(OverrideChain):
             return self.get_next().get_parameters(data, retorno)
         return [retorno]
 
-    def make_override(self, data: List, existente: List = [], resultado: str = None) -> str:
-        print('Gerando override com unit...')
-        ovr = ''
-        ret_unit_gerada = [x for x in data if x is not None and Parameters.UNIT.value in x]
+    def make_override(self, data=None, existente=None, resultado=None) -> str:
+        print('generating unit override ...')
+        if existente is None:
+            existente = []
 
-        if len(ret_unit_gerada) > 0:
-            ovr += ''.join(ret_unit_gerada)
+        if resultado is None:
+            resultado = ''
+
+        if data is None:
+            data = []
+
+        ovr = ''
+        ret_generated_unit = [x for x in data if x is not None and Parameters.UNIT.value in x]
+
+        if len(ret_generated_unit) > 0:
+            ovr += ''.join(ret_generated_unit)
 
         resultado += ovr
         # print(f'override unit {resultado}')
