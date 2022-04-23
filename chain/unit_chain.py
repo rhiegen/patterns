@@ -12,7 +12,7 @@ class UnitChain(OverrideChain):
             retorno = []
         unit = None
         print('processing unit...')
-        data = get_useful_parameters(data,3)
+        data = get_useful_parameters(data)
         pattern_unit_simple = f'({Parameters.UNIT.value}=SYSDA)'
         pattern_unit_number = f'({Parameters.UNIT.value}=\(SYSDA\,)(\d+)(\))'
         match_unit_simple = re.search(pattern_unit_simple, data)

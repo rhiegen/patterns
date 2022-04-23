@@ -2,12 +2,14 @@ import re
 from chain.params_enum import Parameters
 
 
-def get_useful_parameters(data, qt: int):
-    return data[data.find('DD') + qt:]
+def get_useful_parameters(data):
+    start_in = data.find(' DD ') + 4
+    return data[start_in:]
 
 
-def get_cab(texto: str):
-    return texto[0:texto.find(' DD ') + 4]
+def get_cab(texto: str) -> str:
+    start_in = texto.find(' DD ') + 4
+    return texto[:start_in]
 
 
 def get_needed_comma(ovr, resultado):
@@ -16,9 +18,9 @@ def get_needed_comma(ovr, resultado):
     return ovr
 
 
-def adjust_override(ovr: str, max_len: int) -> list:
-    cab = get_cab(ovr)
-    ovr = get_useful_parameters(ovr, 3)
+def adjust_override(ovr: str, cab: str, max_len: int) -> list:
+    # cab = get_cab(ovr)
+    ovr = get_useful_parameters(ovr)
     unit = get_unit(ovr)
     len_cab = len(cab)
     a_retirar = ovr[ovr.find(unit):len(unit) + ovr.find(unit) + 1]
@@ -83,7 +85,6 @@ def get_ovr_without_unit(ovr, unit, len_cab, a_retirar):
     ovr = ovr.replace(a_retirar, '')
 
     return ovr
-
 
 # ovr = 'STEP.SORT DD UNIT=(SYSDA,25),STORCLAS=EXTNOST5,DATACLAS=XDEFCOMP,AVGREC=K,BUF=40'
 # for partes in adjust_override(ovr, 71):

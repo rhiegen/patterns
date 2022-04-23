@@ -17,7 +17,7 @@ class ClasChain(OverrideChain):
         print('processing _clas...')
         if retorno is None:
             retorno = []
-        data = get_useful_parameters(data, 4)
+        data = get_useful_parameters(data)
         for param in self.__list_clas_parameters:
             reg_expr = f'({param.value}=)(\w+)'
             ret_expr = re.search(reg_expr, data)
