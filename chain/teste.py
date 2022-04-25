@@ -43,15 +43,17 @@ print(ljust)
 rjust = set_filling_to_right_side(20, '*')
 print(rjust)
 
+
+
 ovr_gerado = 'STEP.DDNAME DD UNIT=(SYSDA,25),STORCLAS=EXTNOST5,DATACLAS=XDEFCOMP'
+ovr_existente = 'STEP.DDNAME DD UNIT=(SYSDA,25),AVGREC=K,DATACLAS=XDEFAULT,BUF=40'
+padrao = '(\,)(\w+)(\=)(\w+)'
+for i in range(3):
+    if ovr_existente is not None:
+        parte = re.search(padrao, ovr_existente).group()
+        inicio = ovr_existente.find(parte)
+        ovr_existente = ovr_existente[inicio+len(parte):]
+        print(ovr_existente)
 
 
-def get_cab(texto: str) -> str:
-    start_in = texto.find(' DD ') + 4
-    return  ovr_gerado[:start_in]
-
-
-cab = get_cab(ovr_gerado)
-
-print(f'cab = {cab}')
 
