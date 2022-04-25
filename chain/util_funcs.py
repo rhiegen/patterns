@@ -24,7 +24,7 @@ def adjust_override(ovr: str, cab: str, max_len: int) -> list:
     unit = get_unit(ovr)
     len_cab = len(cab)
     a_retirar = ovr[ovr.find(unit):len(unit) + ovr.find(unit) + 1]
-    ovr = get_ovr_without_unit(ovr, unit, len_cab, a_retirar)
+    ovr = get_ovr_without_unit(ovr, a_retirar)
     a_retirar = a_retirar[:-1]
     # particiona o restante
     part_size = 0
@@ -81,9 +81,8 @@ def get_unit(ovr):
     return unit
 
 
-def get_ovr_without_unit(ovr, unit, len_cab, a_retirar):
+def get_ovr_without_unit(ovr, a_retirar):
     ovr = ovr.replace(a_retirar, '')
-
     return ovr
 
 # ovr = 'STEP.SORT DD UNIT=(SYSDA,25),STORCLAS=EXTNOST5,DATACLAS=XDEFCOMP,AVGREC=K,BUF=40'
