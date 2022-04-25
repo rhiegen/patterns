@@ -84,8 +84,3 @@ def get_unit(ovr):
 def get_ovr_without_unit(ovr, a_retirar):
     ovr = ovr.replace(a_retirar, '')
     return ovr
-
-# ovr = 'STEP.SORT DD UNIT=(SYSDA,25),STORCLAS=EXTNOST5,DATACLAS=XDEFCOMP,AVGREC=K,BUF=40'
-# for partes in adjust_override(ovr, 71):
-#     print(partes, end='')
-# print()
