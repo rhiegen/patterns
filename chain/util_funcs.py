@@ -37,9 +37,9 @@ def adjust_override(ovr: str, cab: str, max_len: int) -> list:
     return ovr_list
 
 
-def compose_ovr(a_retirar, cab, max_len, ovr_list, unit, new_ovr, qt_chars=27):
+def compose_ovr(a_retirar, cab, max_len, ovr_list, unit, new_ovr):
     if len(ovr_list) > 1:
-        ovr_list.append(new_ovr.rjust(qt_chars, ' '))
+        ovr_list.append(add_chars_to_string_side(new_ovr,18,' ','left'))
     else:
         ovr_list.append(new_ovr + '\n')
 
