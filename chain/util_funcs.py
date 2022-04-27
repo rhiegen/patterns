@@ -19,7 +19,6 @@ def get_needed_comma(ovr, resultado):
 
 
 def adjust_override(ovr: str, cab: str, max_len: int) -> list:
-    # cab = get_cab(ovr)
     ovr = get_useful_parameters(ovr)
     unit = get_unit(ovr)
     len_cab = len(cab)
@@ -38,16 +37,17 @@ def adjust_override(ovr: str, cab: str, max_len: int) -> list:
     return ovr_list
 
 
-def compose_ovr(a_retirar, cab, max_len, ovr_list, unit, new_ovr):
+def compose_ovr(a_retirar, cab, max_len, ovr_list, unit, new_ovr, qt_chars=27):
     if len(ovr_list) > 1:
-        ovr_list.append('                 ' + new_ovr)
+        ovr_list.append(new_ovr.rjust(qt_chars, ' '))
     else:
         ovr_list.append(new_ovr + '\n')
 
     if len(ovr_list[len(ovr_list) - 1]) + len(a_retirar) + 2 > max_len:
         ovr_list.append(unit)
     else:
-        ovr_list[len(ovr_list) - 1] += '                 ' + a_retirar
+        ovr_list[len(ovr_list) - 1] += add_chars_to_string_side(a_retirar, 18, ' ', 'left')
+
     for i in range(len(ovr_list)):
         ovr_list[i] = "//" + cab + ovr_list[i] if i == 0 else ovr_list[i]
 
@@ -60,9 +60,8 @@ def get_new_ovr(partes, len_cab, max_len, new_ovr, ovr_list, part_size, qt_vezes
         if qt_vezes == 1:
             ovr_list.append(new_ovr + '\n')
         else:
-            ovr_list.append('                 ' + new_ovr + '\n')
+            ovr_list.append(add_chars_to_string_side(new_ovr,18,' ','left') + '\n')
         new_ovr = ''
-        # part_size = len(partes)
     else:
         new_ovr += partes + ','
     return new_ovr
@@ -84,3 +83,12 @@ def get_unit(ovr):
 def get_ovr_without_unit(ovr, a_retirar):
     ovr = ovr.replace(a_retirar, '')
     return ovr
+
+
+def add_chars_to_string_side(string, qty, chars, side):
+    if side == 'left':
+        return qty * chars + string
+    elif side == 'right':
+        return string + qty * chars
+    else:
+        return string

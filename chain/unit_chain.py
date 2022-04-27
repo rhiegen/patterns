@@ -1,6 +1,5 @@
 from __future__ import annotations
 from overrideChain import OverrideChain
-import re
 from chain.params_enum import Parameters
 from chain.util_funcs import get_useful_parameters, get_unit
 
@@ -13,14 +12,6 @@ class UnitChain(OverrideChain):
         unit = None
         print('processing unit...')
         data = get_useful_parameters(data)
-        # pattern_unit_simple = f'({Parameters.UNIT.value}=SYSDA)'
-        # pattern_unit_number = f'({Parameters.UNIT.value}=\(SYSDA\,)(\d+)(\))'
-        # match_unit_simple = re.search(pattern_unit_simple, data)
-        # match_unit_number = re.search(pattern_unit_number, data)
-        # if match_unit_number is not None:
-        #     unit = match_unit_number.group()
-        # elif match_unit_simple is not None:
-        #     unit = match_unit_simple.group()
         unit = get_unit(data)
 
         retorno.append(unit)

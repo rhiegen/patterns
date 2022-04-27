@@ -12,7 +12,7 @@ class Override(ABC):
 
 class OverrideImpl(Override, ABC):
 
-    def get_overrides(self,ovr_existente: str, ovr_gerado: str) -> str:
+    def get_overrides(self, ovr_existente: str, ovr_gerado: str) -> str:
         resultant = ''
         # __chain = None
         # __chain2 = None
