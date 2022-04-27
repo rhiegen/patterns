@@ -15,5 +15,3 @@ D
 chain/params_enum.py,8/5/85c54aed25680b44dde7e70b1308dc7abcbf09fd
 F
 chain/overrideChain.py,c/0/c078f60014a30289a825d61b76f082835e34f1e7
-C
-chain/clas_chain.py,4/b/4b27455c9731b2176347aa33d44303d90ecdb67f
