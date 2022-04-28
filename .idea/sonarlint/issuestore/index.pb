@@ -9,8 +9,6 @@ J
 inversion_dependency/id.py,9/5/95e67565dda3993c294d3d7b6f3636f6a55714b2
 E
 api/email_listener.py,7/0/70c1b71ecdd5028b766785a150e1547e2e5256fe
->
-chain/teste.py,8/e/8ec7e1f0bd3c0adef191adf1c4693b8091e4a539
 D
 chain/params_enum.py,8/5/85c54aed25680b44dde7e70b1308dc7abcbf09fd
 F
